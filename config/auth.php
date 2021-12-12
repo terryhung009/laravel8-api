@@ -40,6 +40,11 @@ return [
             'driver' => 'session',
             'provider' => 'users',
         ],
+        'api' => [
+            'driver' => 'passport', //<-修改這裡
+            'provider' => 'users',
+            'hash' => false, //這個是Laravel 5.8 出現的，他主要是可以讓 Token 再 SHA-256 保護存入資料表
+        ],
     ],
 
     /*
