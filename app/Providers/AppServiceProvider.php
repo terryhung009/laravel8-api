@@ -25,7 +25,7 @@ class AppServiceProvider extends ServiceProvider
     public function boot()
     {
         //
-        $this->registerPolicies();
+        // $this->registerPolicies();
         //加入下一行程式碼
         Passport::routes();
     }

@@ -9,6 +9,11 @@ use  Illuminate\Support\Facades\Cache;
 
 class AnimalController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('auth:api', ['except' => ['index', 'show']]);
+    }
+
     /**
      * Display a listing of the resource.
      *
@@ -82,7 +87,7 @@ class AnimalController extends Controller
             return response($animals, Response::HTTP_OK);
         });
 
-        
+
 
 
 
@@ -93,7 +98,7 @@ class AnimalController extends Controller
         //     ->paginate($limit) // 使用分頁方法，最多回傳$limit筆資料
         //     ->appends($request->query());
 
-        // return response($animals, Response::HTTP_OK);    
+        // return response($animals, Response::HTTP_OK);
 
         //
         // $animals = Animal::get();
@@ -120,10 +125,10 @@ class AnimalController extends Controller
     {
         $this->validate($request,[
             //允許null 或 整數
-            'type_id' => 'nullable|integer',   
+            'type_id' => 'required|integer',   
 
              //必填文字最多255字元
-            'name' => 'required|string|max:255',   
+            'name' => 'required|string|max:255',
 
             //允許null或日期格式，使用php strtotime檢查傳入的日期字串
             'birthday' => 'nullable|date',
@@ -143,16 +148,16 @@ class AnimalController extends Controller
 
 
         ]);
-        
+
         /**
          * 一般來說不需要會員輸入自己的ID建立動物資源，而是使用登入狀態判斷，
          * 後續將於身分驗證章節修改這邊的內容，先將user_id強制寫成1寫入資料庫
-         * 
-         * 
-         * 
+         *
+         *
+         *
          */
         $request['user_id'] = 1;
-        
+
 
 
         //
