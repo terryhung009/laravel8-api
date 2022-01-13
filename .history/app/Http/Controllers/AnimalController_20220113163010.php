@@ -11,11 +11,9 @@ class AnimalController extends Controller
 {
     public function __construct()
     {
-        $this->middleware('auth:api', ['except' => ['index', 'show']]);
+        // $this->middleware('auth:api', ['except' => ['index', 'show']]);
 
         $this->middleware('scopes:create-animals', ['only' => ['store']]);
-
-        $this->middleware('client', ['only' => ['index', 'show']]);
     }
 
     /**

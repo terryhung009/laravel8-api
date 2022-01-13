@@ -27,6 +27,3 @@ Route::apiResource('types', TypeController::class);
 // Route:post('/user/{user}/animals',function(){
 //     //dosomething
 // })->middleware('scopes:create-animals,user-info');
-Route::middleware(['auth:api', 'scope:userinfo'])->get('/user', function (Request $request) {
-    return $request->user();
-});
