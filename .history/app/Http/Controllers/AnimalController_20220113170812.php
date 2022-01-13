@@ -202,8 +202,7 @@ class AnimalController extends Controller
     {
         //
         $animal->update($request->all());
-        // return response($animal, Response::HTTP_OK);
-        return new AnimalResource($animal);
+        return response($animal, Response::HTTP_OK);
     }
 
     /**
