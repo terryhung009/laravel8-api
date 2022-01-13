@@ -20,6 +20,6 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
 
-Route::apiResource('animals', AnimalController::class);
+Route::apiResource('animals',AnimalController::class);
 
-Route::apiResource('types', TypeController::class);
+Route::apiResource('types',TypeController::class);

@@ -29,9 +29,5 @@ class AuthServiceProvider extends ServiceProvider
         Passport::routes();
 
         //
-        Passport::tokensCan([
-            'create-animals' => '建立動物資訊',
-            'user-info' => '使用者資訊',
-        ]);
     }
 }

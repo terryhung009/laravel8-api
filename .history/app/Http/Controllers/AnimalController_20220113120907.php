@@ -153,7 +153,7 @@ class AnimalController extends Controller
          *
          *
          */
-        // $request['user_id'] = 1;
+        $request['user_id'] = 1;
 
 
 

@@ -43,15 +43,7 @@ class Handler extends ExceptionHandler
     protected function unauthenticated($request, AuthenticationException $exception)
     {
         //客戶端請求JSON格式
-        if ($request->expectsJson()) {
-            return $this->errorResponse(
-                $exception->getMessage(),
-                Response::HTTP_UNAUTHORIZED
-            );
-        } else {
-            //客戶端非請求JSON格式轉回登入畫面
-            return redirect()->guest($exception->redirectTo() ?? route('login'));
-        }
+
     }
     public function register()
     {

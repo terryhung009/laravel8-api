@@ -37,7 +37,7 @@ class AnimalController extends Controller
         $fullUrl = "{$url}?{$queryString}";
 
         //使用 Laravel的快取方法檢查是否有快取紀錄
-        if (Cache::has($fullUrl)) {
+        if(Cache::has($fullUrl)){
             //使用 return 直接回傳快取資料，不做其他程式邏輯
             return Cache::get($fullUrl);
         }
@@ -45,42 +45,45 @@ class AnimalController extends Controller
 
 
         //設定預設值
-        $limit = $request->limit ?? 10;
+        $limit = $request ->limit ?? 10;
 
         //建立查詢建構器，分段的方式撰寫SQL語句。
         $query = Animal::query();
 
         //篩選程式邏輯，如果有設定filters參數
-        if (isset($request->filters)) {
+        if(isset($request->filters)){
             $filters = explode(',', $request->filters);
-            foreach ($filters as $key => $filter) {
-                list($key, $value) = explode(':', $filter);
-                $query->where($key, 'like', "%$value%");
+            foreach ($filters as $key =>$filter){
+                list($key , $value) = explode(':', $filter);
+                $query->where($key, 'like', "%$value");
             }
         }
 
         //排序順序
-        if (isset($request->sorts)) {
-            $sorts = explode(',', $request->sorts);
-            foreach ($sorts as $key => $sort) {
+        if(isset($request->sorts)){
+            $sorts = explode(',',$request->sorts);
+            foreach ($sorts as $key => $sort){
                 list($key, $value) = explode(':', $sort);
-                if ($value == 'asc' || $value == 'dsc') {
+                if($value == 'asc' || $value == 'dsc'){
                     $query->orderBy($key, $value);
                 }
+
             }
-        } else {
+
+
+        }else{
             //將原本的排序方法移至這裡，如果沒有設定條件，預設id大到小
-            $query->orderBy('id', 'desc');
+            $query->orderBy('id','desc');
         }
 
 
 
-        $animals = Animal::orderBy('id', 'desc')
+        $animals = Animal::orderBy('id','desc')
             ->paginate($limit) // 使用分頁方法，最多回傳$limit筆資料
             ->appends($request->query());
 
         //沒有快取紀錄記住資料，並設定60秒過期，快取名稱使用網址命名。
-        return Cache::remember($fullUrl, 60, function () use ($animals) {
+        return Cache::remember($fullUrl , 60 ,function() use ($animals){
             return response($animals, Response::HTTP_OK);
         });
 
@@ -120,11 +123,11 @@ class AnimalController extends Controller
      */
     public function store(Request $request)
     {
-        $this->validate($request, [
+        $this->validate($request,[
             //允許null 或 整數
-            'type_id' => 'required|integer',
+            'type_id' => 'required|integer',   
 
-            //必填文字最多255字元
+             //必填文字最多255字元
             'name' => 'required|string|max:255',
 
             //允許null或日期格式，使用php strtotime檢查傳入的日期字串
@@ -153,7 +156,7 @@ class AnimalController extends Controller
          *
          *
          */
-        // $request['user_id'] = 1;
+        $request['user_id'] = 1;
 
 
 
@@ -173,6 +176,7 @@ class AnimalController extends Controller
     {
         //
         return response($animal, Response::HTTP_OK);
+
     }
 
     /**
@@ -210,6 +214,6 @@ class AnimalController extends Controller
     {
         //
         $animal->delete();
-        return response(null, Response::HTTP_NO_CONTENT);
+        return response(null,Response::HTTP_NO_CONTENT);
     }
 }

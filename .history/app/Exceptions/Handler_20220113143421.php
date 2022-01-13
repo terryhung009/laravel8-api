@@ -49,8 +49,7 @@ class Handler extends ExceptionHandler
                 Response::HTTP_UNAUTHORIZED
             );
         } else {
-            //客戶端非請求JSON格式轉回登入畫面
-            return redirect()->guest($exception->redirectTo() ?? route('login'));
+            //
         }
     }
     public function register()
